@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react'
 import {eventBus} from '../services/eventBusService'
 
-export const Modal = ({pos}) => {
+export const Modal = () => {
   const [color, setColor] = useState('#826262')
   const [isShow, setShow] = useState(false)
 
   useEffect(() => {
-    loadLoc()
-    console.log('color', color)
-  }, [pos])
+    const unsubscribeModal = eventBus.on('open', (isOpen) => {
+      setShow(isOpen)
+    })
 
-  const loadLoc = () => {}
+    return () => {
+      unsubscribeModal()
+    }
+  }, [])
 
   const onSaveColor = async (ev) => {
     ev.preventDefault()
-
-    eventBus.emit('centerWeather', color)
-    eventBus.emit('putMark', color)
+    eventBus.emit('color', color)
+    setShow(false)
   }
 
   const handleChange = ({target}) => {
     setColor(target.value)
   }
-
-  // if (!color) return <div>Loading...</div>
 
   return (
     <div
@@ -39,6 +39,13 @@ export const Modal = ({pos}) => {
           className="form-input"
         />
         <button className="btn btn-primary pos-center">Save</button>
+        <button
+          type="button"
+          onClick={() => setShow(false)}
+          className="btn btn-danger  m-4"
+        >
+          Cancel
+        </button>
       </form>
     </div>
   )

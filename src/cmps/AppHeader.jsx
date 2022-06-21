@@ -18,12 +18,21 @@ export const AppHeader = () => {
     setSearch('')
   }
 
+  const openModal = () => {
+    eventBus.emit('open', true)
+  }
+
   return (
     <header className="main-header">
       <div className="logo">
         <h1>
           <span className="clr-teal">Wiki</span>Tube
         </h1>
+      </div>
+      <div>
+        <button onClick={openModal} className="btn btn-success">
+          Change Background Color
+        </button>
       </div>
       <div className="search-container">
         <input
