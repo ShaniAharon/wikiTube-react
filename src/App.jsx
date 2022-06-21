@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
 import {AppHeader} from './cmps/AppHeader'
+import {AppFooter} from './cmps/AppFooter'
 import {WikiTubeApp} from './views/WikiTubeApp.jsx'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<WikiTubeApp />}></Route>
       </Routes>
+      <AppFooter />
     </section>
   )
 }

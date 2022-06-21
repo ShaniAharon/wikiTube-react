@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {WikiPreview} from '../cmps/WikiPreview'
 import {VideoList} from '../cmps/VideoList'
 import {eventBus} from '../services/eventBusService'

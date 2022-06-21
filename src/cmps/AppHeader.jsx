@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useForm} from '../hooks/useForm'
 import {eventBus} from '../services/eventBusService'
 import {youtubeService} from '../services/youtube.service'
 import {wikiService} from '../services/wiki.service'
+import {termService} from '../services/term.service'
 
 export const AppHeader = () => {
   //TODO: try the ragular two way binding here
@@ -11,9 +12,9 @@ export const AppHeader = () => {
   const handleClick = async () => {
     const res = await youtubeService.getTop5Res(search)
     const wikiData = await wikiService.getWikiData(search)
-    console.log('wikiData', wikiData)
     eventBus.emit('videos', res)
     eventBus.emit('wikis', wikiData)
+    termService.saveTerm(search)
     setSearch('')
   }
 
