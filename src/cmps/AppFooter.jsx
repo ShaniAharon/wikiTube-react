@@ -3,7 +3,6 @@ import {eventBus} from '../services/eventBusService'
 import {termService} from '../services/term.service'
 
 export const AppFooter = () => {
-  const handleClick = async () => {}
   const [terms, setTerms] = useState(null)
 
   useEffect(() => {
@@ -13,6 +12,11 @@ export const AppFooter = () => {
   const loadTerms = async () => {
     const terms = await termService.getTerms()
     setTerms(terms)
+  }
+
+  const handleClick = () => {
+    //show modal use promise to wait for use response then clear it
+    termService.clearHistory()
   }
 
   return (

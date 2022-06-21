@@ -1,47 +1,43 @@
 import React, {useEffect, useState} from 'react'
-import {useForm} from '../hooks/useForm'
-import {locService} from '../services/loc.service'
 import {eventBus} from '../services/eventBusService'
 
 export const Modal = ({pos}) => {
-  const [loc, handleChange, setLoc] = useForm(null)
+  const [color, setColor] = useState('#826262')
   const [isShow, setShow] = useState(false)
 
   useEffect(() => {
     loadLoc()
+    console.log('color', color)
   }, [pos])
 
-  const loadLoc = () => {
-    const loc = !pos ? locService.getEmptyLoc() : locService.createLoc(pos)
-    setLoc(loc)
-    setShow(true)
-  }
+  const loadLoc = () => {}
 
-  const onSaveLoc = async (ev) => {
+  const onSaveColor = async (ev) => {
     ev.preventDefault()
-    await locService.saveLoc(loc)
-    setShow(false)
-    //test change the weather to the marked place , maybe remove it later
-    eventBus.emit('centerWeather', loc)
-    eventBus.emit('putMark', loc)
+
+    eventBus.emit('centerWeather', color)
+    eventBus.emit('putMark', color)
   }
 
-  if (!loc) return <div>Loading...</div>
+  const handleChange = ({target}) => {
+    setColor(target.value)
+  }
+
+  // if (!color) return <div>Loading...</div>
 
   return (
     <div
       className={'modal pos-center pos-relative' + (isShow ? ' show' : ' hide')}
     >
-      <h2 className="text-center u">Name It</h2>
-      <form onSubmit={onSaveLoc} className="">
+      <h2 className="text-center u">Pick It</h2>
+      <form onSubmit={onSaveColor} className="">
         <input
-          type="text"
+          type="color"
           onChange={handleChange}
-          value={loc.name}
-          name="name"
+          value={color}
+          name="color"
           className="form-input"
         />
-
         <button className="btn btn-primary pos-center">Save</button>
       </form>
     </div>

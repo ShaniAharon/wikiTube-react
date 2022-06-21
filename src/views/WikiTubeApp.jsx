@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {WikiPreview} from '../cmps/WikiPreview'
 import {VideoList} from '../cmps/VideoList'
 import {eventBus} from '../services/eventBusService'
+import {Modal} from '../cmps/Modal'
 
 export const WikiTubeApp = () => {
   const [videoId, setVideoId] = useState('tgbNymZ7vqY')
@@ -29,6 +30,7 @@ export const WikiTubeApp = () => {
         ></iframe>
         <WikiPreview />
       </div>
+      <Modal />
     </section>
   )
 }

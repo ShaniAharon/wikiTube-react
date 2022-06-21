@@ -9,6 +9,7 @@ export const termService = {
     createTerm,
     saveTerm,
     removeTerm,
+    clearHistory
 }
 
 // const terms = [
@@ -22,6 +23,10 @@ async function saveTerm({ name: searchTerm }) {
 
 async function removeTerm(termId) {
     return storageService.remove(STORAGE_KEY, termId)
+}
+
+async function clearHistory() {
+    return await storageService.clear(STORAGE_KEY)
 }
 
 function getEmptyTerm() {

@@ -4,10 +4,7 @@ import {eventBus} from '../services/eventBusService'
 export const WikiPreview = () => {
   const [wikiData, setWikiData] = useState(null)
 
-  //get the center as a prop from the map cmp
   useEffect(() => {
-    // const centerLoc = locService.getCenterLoc()
-
     const unsubscribeWiki = eventBus.on('wikis', (wikiData) => {
       setWikiData(wikiData)
     })
@@ -16,6 +13,13 @@ export const WikiPreview = () => {
       unsubscribeWiki()
     }
   }, [])
+
+  const removeTags = (str) => {
+    return str
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s{2,}/g, ' ')
+      .trim()
+  }
 
   if (!wikiData) return <div>Wiki data Loading...</div>
   return (
@@ -26,7 +30,7 @@ export const WikiPreview = () => {
         {wikiData.map(({title, snippet}) => (
           <div key={title}>
             <h2>{title}</h2>
-            <p>{snippet}</p>
+            <p>{removeTags(snippet)}</p>
           </div>
         ))}
       </section>
